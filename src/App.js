@@ -14,7 +14,7 @@ function App() {
     )
 
 
-    function taggleTodo(id) {
+    function toggleTodo(id) { //toggle as completed
         setTodos(
             todos = todos.map(todo => {
                 if (todo.id === id) {
@@ -25,11 +25,23 @@ function App() {
         )
     }
 
-    function removeTodo(id) {
+    function editTodo(id, newText) {
+        setTodos(
+            todos = todos.map(todo => {
+                if (todo.id === id) {
+                    todo.title = newText;
+                }
+                return todo;
+            })
+        )
+        console.log(todos);
+    }
+
+    function removeTodo(id) { //removes from list
         setTodos(todos.filter(todo => todo.id !== id))
     }
 
-    function addTodo(title) {
+    function addTodo(title) { // adds new todo
         setTodos(todos.concat([{
             title,
             id: Date.now(),
@@ -38,11 +50,11 @@ function App() {
     }
 
     return (
-        <Context.Provider value={{removeTodo}}>
+        <Context.Provider value={{removeTodo, editTodo}}>
             <div className={styles.content}>
                 <h1>React ToDo </h1>
-                <TodoInputField onCreate={addTodo}/>
-                {todos.length ? <TodoList todos={todos} onTaggle={taggleTodo}/> : null}
+                <TodoInputField addTodo={addTodo}/>
+                {todos.length ? <TodoList todos={todos} toggleTodo={toggleTodo}/> : null}
 
             </div>
         </Context.Provider>

@@ -3,13 +3,13 @@ import TodoItem from './TodoItem/TodoItem'
 import PropTypes from 'prop-types'
 import styles from './TodoList.module.css'
 
-function TodoList(probs) {
+function TodoList(props) {
 	return (
 		<div className={styles.list}>
 			<ul>
 				{
-					probs.todos.map((todo, index) => {
-						return <TodoItem todo={todo} key={todo.id} index={index} onChange={probs.onTaggle}/>
+					props.todos.map((todo, index) => {
+						return <TodoItem todo={todo} key={todo.id} index={index} onChange={props.toggleTodo}/>
 					})
 				}
 			</ul>
@@ -19,7 +19,7 @@ function TodoList(probs) {
 
 TodoList.propTypes = {
 	todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-	onTaggle: PropTypes.func.isRequired
+	onToggle: PropTypes.func.isRequired
 }
 
 export default TodoList
