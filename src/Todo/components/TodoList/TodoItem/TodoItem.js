@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
-import Context from '../../../context'
+import Context from '../../../../context'
 import styles from './TodoItem.module.css'
 
 
@@ -20,13 +20,19 @@ function TodoItem({todo, onChange}) {
 
     const deactivateEditMode = () => {
         if(text !== ""){
-            editTodo(todo.id,text)
+            editTodo(todo.id,text);
         }
         setEditMode(false);
     }
 
     const onStatusChange = (e) => {
         setText(e.currentTarget.value);
+    }
+
+    const enterPress = (e) => {
+        if(e.keyCode === 13){
+            deactivateEditMode();
+        }
     }
 
     const {removeTodo} = useContext(Context);
@@ -44,8 +50,8 @@ function TodoItem({todo, onChange}) {
                 <span className={styles.checkmark}> </span>
                 {!editMode && <label className={styles.todoText + ' ' + classes.join(' ')}
                                      onDoubleClick={activateEditMode}>{todo.title}</label>}
-                {editMode && <input className={styles.editInput} autoFocus={true} onBlur={deactivateEditMode} onChange={onStatusChange}
-                                    value={text}/>}
+                {editMode && <input className={styles.editInput} autoFocus={true}  value={text}
+                                    onKeyDown={enterPress} onBlur={deactivateEditMode} onChange={onStatusChange}/>}
             </label>
             <span className={styles.close} onClick={() => removeTodo(todo.id)}>x</span>
         </li>

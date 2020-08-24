@@ -19,7 +19,7 @@ function TodoList(props) {
 
 TodoList.propTypes = {
 	todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-	onToggle: PropTypes.func.isRequired
+	toggleTodo: PropTypes.func.isRequired
 }
 
 export default TodoList
